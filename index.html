@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>BBL - маркетплейс электроники</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/stylesoflahy.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+  </head>
+  <body onload="ShowCards()">
+    <header>
+      <a href="/" class="logo">BBL</a>
+      <nav>
+        <ul>
+          <li><a href="/login" class="logo">Login</a></li>
+          <li><a href="/registration" class="logo">Registration</a></li>
+        </ul>
+      </nav>
+    </header>
+  
+    <main>
+      <div class="container main__container">
+        <section class="product">
+          <div class="product__info">
+            <div class="container">
+              <h1 class="product__title">Каталог</h1>
+              <h1 class="product__title product__title--gray" id="product__title product"></h1>
+            </div>
+          </div>
+          <div class="cards" id="cards">
+          </div>
+        </section>
+        <button class="cart" id="cart" onclick="showCart()">
+          <img
+            class="cart__image"
+            src="./images/svg/cart.svg"
+            alt="Cart"
+            srcset=""
+          />
+          <div class="cart__num" id="cart_num">0</div>
+        </button>
+        <div class="popup" id="popup">
+          <div class="popup__container" id="popup_container">
+            <div class="popup__item">
+              <h1 class="popup__title">Оформление заказа</h1>
+            </div>
+            <div class="popup__item" id="popup_product_list">
+            </div>
+            <div class="popup__item">
+              <div class="popup__cost">
+                <h2 class="popup__cost-title" >Итого</h2>
+                <output class="popup__cost-value" id="popup_cost">0</output>
+              </div>
+              <div class="popup__cost">
+                <h2 class="popup__cost-title">Скидка</h2>
+                <output class="popup__cost-value" id="popup_discount">0</output>
+              </div>
+              <div class="popup__cost">
+                <h2 class="popup__cost-title">Итого со скидкой</h2>
+                <output class="popup__cost-value" id="popup_cost_discount"
+                  >0</output
+                >
+              </div>
+            </div>
+  
+            <div class="popup__item popup__feedback">
+  
+              <button class="popup__submit" id="popup_submit">Купить</button>
+            </div>
+  
+            <button class="popup__close" id="popup_close" onclick="ExitCart()">&#10006;</button>
+          </div>
+        </div>
+        <div class="popup popup--info">
+          <div id="popup_info_container" class="popup__container">
+            <button id="popup_info_close" class="popup__close">×</button>
+            <div id="popup_info_message" class="popup__message"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  
+    <footer class="footer">
+      <div class="container footer__container">
+        <p> Связаться с нами viperr@gmal.com</p>
+      <p>&copy; 2025 RR. Все права защищены.</p>
+      </div>
+    </footer>
+  <script>
+    if (!localStorage.getItem('Cart')) {
+  localStorage.setItem('Cart', JSON.stringify([]))
+  }
+    let cart = JSON.parse(localStorage.getItem('Cart'))
+    let summ = 0
+    let sale = 0
+    let saleprc = 0
+    function data(data) {
+            return {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        }
+    async function ShowCards() {
+          document.getElementById("cards").innerHTML = ""
+            let confirm = "Показать товары"
+            const req = await fetch("/sendDataProductsCards", data ({
+                msg: confirm
+            }
+            ))
+            const res = await req.json() 
+            products = res.productslist
+            let a = 1
+            products.forEach((object) => {
+                let html = `<div class="card" id="${a + "," + object.name + "," + object.prc + "," + object.saleprc + "," + object.shopname + "," + object.image + "," + object.sale}">
+              <div class="card__top">
+                <a href="/${object.image}" class="card__image">
+                  <img
+                    src="/${object.image}"
+                    alt="${object.name}"
+                  />
+                </a>
+                <div class="card__label">-${object.sale}%</div>
+              </div>
+              <div class="card__bottom">
+                <div class="card__prices">
+                  <div class="card__price card__price--discount">${object.saleprc}</div>
+                  <div class="card__price card__price--common">:${object.prc}</div>
+                </div>
+                <a href="#" class="card__title">
+                  ${object.name}
+                </a>
+                <button class="card__add" onclick="ToCart(this)">В корзину</button>
+              </div>
+            `
+            document.getElementById("cart_num").innerText = cart.length 
+            document.getElementById("product__title product").innerText = products.length + " Товара/Товаров"
+            document.getElementById("cards").insertAdjacentHTML("beforeend", html)
+            a++
+          })
+    }
+    
+    function ToCart(element){
+      savedUser = JSON.parse(localStorage.getItem('user'))
+      if(savedUser != null && savedUser.status == "Покупатель"){
+      let elcart = element.parentElement.parentElement.id
+      let elcarts = elcart.split(",") 
+      let obj = {}
+      elcarts.forEach((element, index) => {
+      obj[`key${index}`] = element
+      });
+      cart.push(obj)
+      localStorage.setItem('Cart', JSON.stringify(cart))
+      document.getElementById("cart_num").innerText = cart.length 
+      }
+      else{
+        window.location.href = "/login"
+      }
+    }
+    function showCart(){
+      savedUser = JSON.parse(localStorage.getItem('user'))
+      if(savedUser != null && savedUser.status == "Покупатель"){
+      document.getElementById("popup").classList.remove("popup")
+      document.querySelector("body").classList.add("lock")
+      document.getElementById("popup").classList.add("popup", "popup--open")
+      document.getElementById("popup_product_list").innerHTML = ""
+      let a = 1
+      cart.forEach((object) => {
+      let id = Date.now().toString(36) + Math.random().toString(36)
+      let html2 = `
+            <div class="popup__product" id="${a + "," + object.key0 + "," + object.key1 + "," + object.key2 + "," + object.key4 + "," + object.key3}">
+              <div class="popup__product-wrap">
+                <img class="popup__product-image" src="/${object.key5}">
+                <h2 class="popup__product-title"> ${object.key1}</h2>
+                </div>
+              <div class="popup__product-wrap">
+                <div class="popup__product-price">${object.key3}</div>
+                <button class="popup__product-delete" onclick="DeleteFromCart(this)" id="${id}" >✖</button></div>
+              </div>
+            `
+        
+      document.getElementById("popup_product_list").insertAdjacentHTML("beforeend", html2)
+      summ += parseInt(object.key2)
+      sale += (parseInt(object.key2) - parseInt(object.key3))
+      saleprc += parseInt(object.key3)
+      document.getElementById("popup_cost").innerText = summ
+      document.getElementById("popup_discount").innerText = sale
+      document.getElementById("popup_cost_discount").innerText = saleprc
+      a++
+              })
+            }
+      else{
+        window.location.href = "/login"
+      }
+    }
+    function ExitCart(){
+      document.getElementById("popup").classList.remove("popup", "popup--open")
+      document.querySelector("body").classList.remove("lock")
+      document.getElementById("popup").classList.add("popup")
+
+    }
+    function DeleteFromCart(element){
+      let NewCart = element.parentElement.parentElement.id
+      let NewCarts = NewCart.split(",")
+      let ToDelName = NewCarts[2]
+      function getCardbyName(name) {
+        return cart.filter(
+            function(cart){ return cart.key1 == name }
+        )
+      }
+      function getCardsbyName(name) {
+        return cart.filter(
+            function(cart){ return cart.key1 != name }
+        )
+      }
+      let Del = getCardbyName(ToDelName)
+      let Keep = getCardsbyName(ToDelName)
+      Del.pop()
+      cart = []
+      Del.forEach((object) => {
+      cart.push(object)
+      })
+      Keep.forEach((object) => {
+      cart.push(object)
+      })
+      localStorage.setItem('Cart', JSON.stringify(cart))
+      element.parentElement.parentElement.remove()
+      document.getElementById("cart_num").innerText = cart.length 
+      summ -= parseInt(NewCarts[3])
+      sale -= (parseInt(NewCarts[3]) - parseInt(NewCarts[5]))
+      saleprc -= parseInt(NewCarts[5])
+      document.getElementById("popup_cost").innerText = summ
+      document.getElementById("popup_discount").innerText = sale
+      document.getElementById("popup_cost_discount").innerText = saleprc
+    }
+  </script>
+    </main>
+  </body>
+</html>

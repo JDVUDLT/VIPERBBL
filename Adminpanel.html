@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель суперадминистратора</title>
+    <link rel="stylesheet" href="/css/STYLEPANEL.css"> 
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body onload="BlockPanel()">
+    <header>
+        <a href="/" class="logo">BBL</a>
+    </header>
+    <main id="content1">
+        <div class="container">
+            <button onclick="showUsers()" class="button">Показать Пользователей</button>
+            <button onclick="showProducts()" class="button">Показать товары</button>
+            <button type="submit" onclick="ExitProfile()" class="button">Выйти из профиля</button>
+        </div>
+    <div id="content"></div>
+
+    
+    </main>
+
+    <footer class="footer">
+        <p>Связаться с нами:<br> viperr@gmail.com</p>
+        <p>&copy; 2025 RR. Все права защищены.</p>
+      </footer>
+  
+
+    <script>
+        function BlockPanel(){
+            savedAdmin = JSON.parse(localStorage.getItem('Admin'))
+            if(savedAdmin == null){
+                window.location.href = "/"
+            }  
+        }
+        function data(data) {
+            return {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        }
+        async function showUsers(){
+            let a = 0
+            document.getElementById("content").innerHTML = ""
+            let confirm = "Список Пользователей"
+            const req = await fetch("/sendDataUsers", data ({
+                msg: confirm
+            }
+            ))
+            const res = await req.json() 
+            users = res.userslist
+            users.forEach((object) => {
+                let html = `
+                <div class="block" id="${object.name + " " + object.log + " " + object.pass + " " + object.status + " " + object.id}">
+                    <input type="text" value="${object.name}" id="${object.name}" readonly class="info-box">
+                    <input type="text" value="${object.log}" id="${object.log}" readonly class="info-box">
+                    <input type="text" value="${object.pass}" id="${object.pass}" readonly class="info-box">
+                    <input type="text" value="${object.status}" id="${object.status}" readonly class="info-box">
+                    <input type="text" value="${object.id}" id="${object.id}" readonly class="info-box">
+                    <input type="text" onclick="DeleteUser(this)" value="Удалить пользователя" class="info-box">
+                    
+                </div>
+                `
+                document.getElementById("content").insertAdjacentHTML("beforeend", html)
+                a++
+            })
+        }
+        async function showProducts(){
+            let a = 0
+            document.getElementById("content").innerHTML = ""
+            let confirm = "Список товаров"
+            const req = await fetch("/sendDataProducts", data ({
+                msg: confirm
+            }
+            ))
+            const res = await req.json() 
+            products = res.productslist
+            products.forEach((object) => {
+                let html = `
+                <div class="block" id="${object.name + " " + object.prc + " " + object.saleprc + " " + object.bio + " " + object.shopname + " " + object.image}" >
+                    <input type="text" value="${object.name}" id="${object.name}" readonly class="info-box">
+                    <input type="text" value="${object.prc}" id="${object.prc}" readonly class="info-box">
+                    <input type="text" value="${object.saleprc}" id="${object.saleprc}" readonly class="info-box">
+                    <input type="text" value="${object.bio}" id="${object.bio}" readonly class="info-box">
+                    <input type="text" value="${object.shopname}" id="${object.shopname}" readonly class="info-box">
+                    <input type="text" value="${object.image}" id="${object.image}" readonly class="info-box">                   
+                    <input type="text" onclick="DeleteProduct(this)" value="Удалить товар" class="info-box">
+                    
+                </div>
+                `
+                document.getElementById("content").insertAdjacentHTML("beforeend", html)
+                a++
+            })
+        }
+        async function DeleteUser(element){
+            let el = element.parentElement.id
+            let els = el.split(" ")
+            element.parentElement.remove()
+            const req = await fetch("/sendDataDeleteUser", data ({
+                els: els[1]
+            }))
+            const res = await req.json() 
+
+        }
+        async function DeleteProduct(element){
+            let el = element.parentElement.id
+            let els = el.split(" ")
+            element.parentElement.remove()
+            const req = await fetch("/sendDataDeleteProduct", data ({
+                els: els[0],
+                photo: els[5]
+            }))
+            const res = await req.json() 
+
+
+        }
+        function ExitProfile(){
+        localStorage.clear('Admin')
+        savedAdmin = null
+        window.location.href = "/login/admin"
+      }
+    </script>
+</body>
+</html>

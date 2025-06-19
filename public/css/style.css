@@ -1,0 +1,437 @@
+/* Отключает вертикальную прокрутку */
+.lock {
+  overflow-y: hidden;
+}
+
+/* Стили для кнопки сброса */
+.reset {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Основные стили карточек товаров */
+.product {
+  padding: 50px 0;
+}
+.product__info {
+  margin-bottom: 40px;
+}
+.product__title {
+  display: inline-block;
+  font-size: 2rem;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+.product__title--gray {
+  color: #b3b3b7;
+}
+
+/* Грид для карточек товаров */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 225px);
+  max-width: 1000px;
+  gap: 40px 30px;
+  margin: 0 auto;
+  justify-content: center;
+  justify-items: center;
+}
+
+/* Стили отдельной карточки товара */
+.card {
+  width: 225px;
+  min-height: 350px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  transition: 0.2s;
+  position: relative;
+}
+.card:hover {
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Метка на карточке товара */
+.card__label {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 4px 8px;
+  background: #27211f;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 400;
+}
+
+/* Верхняя часть карточки (изображение) */
+.card__top {
+  flex: 0 0 220px;
+  position: relative;
+  overflow: hidden;
+}
+.card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: 0.2s;
+}
+.card__image:hover img {
+  transform: scale(1.1);
+}
+
+/* Нижняя часть карточки (информация) */
+.card__bottom {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  padding: 10px;
+}
+
+/* Цены в карточке товара */
+.card__prices {
+  display: flex;
+  margin-bottom: 10px;
+}
+.card__price {
+  flex: 0 0 50%;
+  position: relative;
+}
+.card__price::after {
+  content: "₽";
+  margin-left: 4px;
+}
+
+/* Цена со скидкой */
+.card__price--discount {
+  font-weight: 700;
+  font-size: 19px;
+  color: #414141;
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+.card__price--discount::before {
+  content: "Со скидкой";
+  font-size: 13px;
+  color: #bfbfbf;
+  font-weight: 400;
+}
+
+/* Обычная цена */
+.card__price--common {
+  font-size: 17px;
+  color: #606060;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+}
+.card__price--common::before {
+  content: "Обычная";
+  font-size: 13px;
+  color: #bfbfbf;
+  font-weight: 400;
+}
+
+/* Заголовок карточки */
+.card__title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 17px;
+  line-height: 150%;
+  color: #414141;
+  font-weight: 400;
+}
+.card__title:hover {
+  color: #ff6633;
+}
+
+/* Кнопка добавления в корзину */
+.card__add {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 17px;
+  color: #000000;
+  text-align: center;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: auto;
+}
+.card__add:hover {
+  border-color: #000000;
+  background-color: #000000;
+  color: #fff;
+}
+
+/* Корзина */
+.cart {
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #323742;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: 0.1s;
+  cursor: pointer;
+  padding: 15px;
+}
+.cart:hover {
+  transform: scale(1.1);
+}
+
+/* Иконка корзины */
+.cart__image {
+  width: 35px;
+}
+
+/* Количество товаров в корзине */
+.cart__num {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #d62240;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Основные стили для всплывающих окон */
+.popup,
+.popup--info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.33);
+  z-index: 10;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+/* Повышенный z-index и затемнение для информационного окна */
+.popup--info {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+/* Контейнер всплывающего окна */
+.popup__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 900px;
+  max-height: calc(100% - 40px);
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  position: relative;
+  overflow-y: auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Заголовки и блоки внутри всплывающего окна */
+.popup__title {
+  font-size: 20px;
+}
+
+.popup__item {
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.popup__item:last-of-type {
+  border-bottom: none;
+}
+
+/* Блок продукта в корзине */
+.popup__product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.popup__product-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.popup__product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-right: 10px;
+}
+
+.popup__product-title {
+  max-width: 300px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.popup__product-price {
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.popup__product-delete {
+  font-size: 12px;
+  padding: 5px;
+  cursor: pointer;
+  color: #d62240;
+}
+
+/* Стоимость заказа */
+.popup__cost {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.popup__cost-title {
+  margin-right: 15px;
+  font-size: 20px;
+  color: #364364;
+  text-align: right;
+}
+
+.popup__cost-value {
+  font-size: 20px;
+}
+
+/* Кнопка закрытия всплывающего окна */
+.popup__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.popup__close:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+/* Поля ввода и кнопки отправки */
+.popup__feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.popup__input {
+  max-width: 500px;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #414141;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.popup__input:focus {
+  border-color: #70c05b;
+  outline: none;
+}
+
+.popup__input::placeholder {
+  color: #aaa;
+}
+
+.popup__submit {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  background-color: #70c05b;
+  color: white;
+  font-size: 16px;
+  border: 1px solid #70c05b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Сообщения в информационном окне */
+.popup__message {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.popup__message--success {
+  background-color: #4caf50;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.popup__message--error {
+  background-color: #f44336;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+/* Открытое состояние всплывающего окна */
+.popup--open {
+  display: flex;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}

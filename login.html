@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>BBL - маркетплейс электроники - Вход</title>
+    <link rel="stylesheet" href="/css/STYLELOGIN.CSS">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/png" href="favicon.png">
+  </head>
+  <body onload="Return()">
+    <div class="RR">
+    <div class="wrapper" action="" method="post">
+      <form action="">
+          <h1>Login</h1>
+          <div class="input-box">
+          <input type="text" placeholder="Ваш login" required id="log">
+          <i class='bx bx-user'></i>
+      </div>
+      <div class="input-box">
+          <input type="password" placeholder="Пароль" required id="pass1">
+          <i class='bx bxs-lock-alt'></i> 
+      </div>
+      <button type="submit" class="btn" onclick="sendData()">Войти</button>
+
+      <div class="register-link">
+          <p>Dont have account? <a href="/registration">Register</a></p>
+      </div>
+    </div>
+      </form>
+    <script>
+      function Return(){
+        savedUser = JSON.parse(localStorage.getItem('user'))
+        if(savedUser.status == "Покупатель"){
+          window.location.href = "/profile/customer"
+        }
+        else{
+          window.location.href = "/profile/shop"
+        }
+      }
+       function data(data) {
+            return {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        }
+        async function sendData(){         
+         let varlog = document.getElementById("log").value
+         let varpass = document.getElementById("pass1").value 
+        if(varlog != "" && varpass != ""){
+          const req = await fetch("/sendDataLogin", data ({
+              log: varlog,
+              pass: varpass
+}))
+          const res = await req.json()
+          if(res.msg == "Вы успешно вошли"){
+            localStorage.setItem('user', JSON.stringify(res.user))
+          if(res.user.status == "Покупатель"){
+            window.location.href = "/profile/customer"
+          }
+          if(res.user.status == "Магазин"){
+            window.location.href = "/profile/shop"
+          }
+          }
+          else{
+            alert(res.msg)
+          }
+}
+        else{
+          alert("Заполните все поля")
+        }
+}
+    </script>
+  </body>
+</html>
