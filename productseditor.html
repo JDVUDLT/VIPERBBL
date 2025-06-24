@@ -1,222 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Редактор товаров</title>
-    <link rel="stylesheet" href="/css/STYLEDITOR.css">
-    <link rel="icon" type="image/png" href="/css/favicon.png">
+    <link rel="stylesheet" href="/css/STYLEDITOR.css" />
+    <link rel="icon" type="image/png" href="/css/favicon.png" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        html, body {
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-        }
+      html,
+      body {
+        height: 100%;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+      }
 
-        h1 {
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #000000;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button[disabled] {
-            background-color: #ccc;
-        }
-        button:hover:not([disabled]) {
-            background-color: #6b6b6b;
-        }
-        #upload-container {
-            margin-bottom: 15px;
-        }
-        img#preview {
-            display: none;
-            max-width: 100%;
-            margin-top: 10px;
-            border-radius: 4px;
-        }
-        #status {
-            margin-top: 10px;
-        }
-        .error {
-            color: red;
-        }
-        .success {
-            color: green;
-        }
-      </style>
-</head>
-<body>
-  <header>
-    <a href="/" class="logo">BBL</a>
-    <nav>
-          <a class="logo" href="/profile/shop">Ваш профиль</a>
-    </nav>
-    
-</header>
-<div class="container">
-  <h1>Редактор товаров</h1>
-  
-  <input type="text" placeholder="Название товара" id="name">
-  <input type="text" placeholder="Цена" id="prc">
-  <input type="text" placeholder="Скидка в процентах" id="sale">
-  <input type="text" placeholder="Описание" id="bio">
+      h1 {
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #000000;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button[disabled] {
+        background-color: #ccc;
+      }
+      button:hover:not([disabled]) {
+        background-color: #6b6b6b;
+      }
+      #upload-container {
+        margin-bottom: 15px;
+      }
+      img#preview {
+        display: none;
+        max-width: 100%;
+        margin-top: 10px;
+        border-radius: 4px;
+      }
+      #status {
+        margin-top: 10px;
+      }
+      .error {
+        color: red;
+      }
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">BBL</a>
+      <nav>
+        <a class="logo" href="/profile/shop">Ваш профиль</a>
+      </nav>
+    </header>
+    <div class="container">
+      <h1>Редактор товаров</h1>
 
-  <h2>Загрузка изображений</h2>
-  
-  <div id="upload-container">
-    <input type="file" id="fileInput" accept="image/*" style="display:none;">
-    <button onclick="document.getElementById('fileInput').click()">Выбрать файл</button>
-    <img id="preview" alt="Превью">
-    <div id="status"></div>
-    <button onclick="uploadFile()" id="uploadBtn" type="submit" class="button" disabled>Загрузить на сервер</button>
-  </div>
+      <input type="text" placeholder="Название товара" id="name" />
+      <input type="text" placeholder="Цена" id="prc" />
+      <input type="text" placeholder="Скидка в процентах" id="sale" />
+      <input type="text" placeholder="Описание" id="bio" />
 
-  <button id="uploadBtn" type="submit" onclick="NewObject()" class="button">Добавить товар</button>
-  
-</div>
+      <h2>Загрузка изображений</h2>
 
-<footer class="footer">
-  <p>Связаться с нами viperr@gmail.com</p>
-  <p>&copy; 2025 RR. Все права защищены.</p>
-</footer>
+      <div id="upload-container">
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          style="display: none"
+        />
+        <button onclick="document.getElementById('fileInput').click()">
+          Выбрать файл
+        </button>
+        <img id="preview" alt="Превью" />
+        <div id="status"></div>
+        <button
+          onclick="uploadFile()"
+          id="uploadBtn"
+          type="submit"
+          class="button"
+          disabled
+        >
+          Загрузить на сервер
+        </button>
+      </div>
+
+      <button id="uploadBtn" type="submit" onclick="NewObject()" class="button">
+        Добавить товар
+      </button>
+    </div>
+
+    <footer class="footer">
+      <p>Связаться с нами viperr@gmail.com</p>
+      <p>&copy; 2025 RR. Все права защищены.</p>
+    </footer>
     <script>
-      let images = []
-        function data(data) {
-            return {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }
-        }
-        async function NewObject() {
-            savedUser = JSON.parse(localStorage.getItem('user'))
-            let name = document.getElementById("name").value 
-            let prc = document.getElementById("prc").value
-            let sale = document.getElementById("sale").value
-            let saleprc = prc * (1 - sale/100)
-            let bio = document.getElementById("bio").value 
-            let shopname = savedUser.name
-            let image = images[0]
-            if(name != "" && prc != "" && bio != "" && sale !=""){
-            const req = await fetch("/sendDataProduct", data ({
+      let images = [];
+      function data(data) {
+        return {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+      }
+      async function NewObject() {
+        savedUser = JSON.parse(localStorage.getItem("user"));
+        let name = document.getElementById("name").value;
+        let prc = document.getElementById("prc").value;
+        let sale = document.getElementById("sale").value;
+        let saleprc = prc * (1 - sale / 100);
+        let bio = document.getElementById("bio").value;
+        let shopname = savedUser.name;
+        let image = images[0];
+        if (name != "" && prc != "" && bio != "" && sale != "") {
+          const req = await fetch(
+            "/sendDataProduct",
+            data({
               name: name,
               prc: prc,
               bio: bio,
               shopname: shopname,
               saleprc: saleprc,
               sale: sale,
-              image: images[0]
-}))
-            const res = await req.json()
-                if(res.msg == "Такой товар уже существует"){
-                    showStatus("Такой товар уже существует", "success")
-            }
-            showStatus(`Товар ${Name} успешно создан`)
-      }
-            else{
-          alert("Заполните все поля")
+              image: images[0],
+            })
+          );
+          const res = await req.json();
+          if (res.msg == "Такой товар уже существует") {
+            showStatus("Такой товар уже существует", "success");
+          }
+          showStatus(`Товар ${Name} успешно создан`);
+        } else {
+          alert("Заполните все поля");
         }
-}
-const fileInput = document.getElementById('fileInput')
-    const preview = document.getElementById('preview')
-    const uploadBtn = document.getElementById('uploadBtn')
-    const statusDiv = document.getElementById('status')
-    let selectedFile = null
-
-    fileInput.addEventListener('change', function(e) {
-      if (e.target.files.length) {
-        selectedFile = e.target.files[0]
-        showPreview(selectedFile)
-        uploadBtn.disabled = false
-        statusDiv.textContent = ''
       }
-    })
-    function showPreview(file) {
-      if (!file.type.startsWith('image/')) return
-      
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        preview.src = e.target.result
-        preview.style.display = 'block'
-      };
-      reader.readAsDataURL(file)
-    }
+      const fileInput = document.getElementById("fileInput");
+      const preview = document.getElementById("preview");
+      const uploadBtn = document.getElementById("uploadBtn");
+      const statusDiv = document.getElementById("status");
+      let selectedFile = null;
 
-    async function uploadFile() {
-      if (!selectedFile) {
-        showStatus('Файл не выбран', 'error')
-        return
+      fileInput.addEventListener("change", function (e) {
+        if (e.target.files.length) {
+          selectedFile = e.target.files[0];
+          showPreview(selectedFile);
+          uploadBtn.disabled = false;
+          statusDiv.textContent = "";
+        }
+      });
+      function showPreview(file) {
+        if (!file.type.startsWith("image/")) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
       }
 
-      showStatus('Загрузка...', '')
-
-      try {
-        const formData = new FormData()
-        formData.append('image', selectedFile)
-
-        const response = await fetch('/upload', {
-          method: 'POST',
-          body: formData
-        });
-
-        if (!response.ok) {
-          const error = await response.json()
-          throw new Error(error.error || 'Ошибка сервера')
+      async function uploadFile() {
+        if (!selectedFile) {
+          showStatus("Файл не выбран", "error");
+          return;
         }
 
-        const result = await response.json()
-        showStatus(`Файл "${result.filename}" успешно загружен!`, 'success')
-        images.push(result.filename)
-        
-        resetForm()
-      } catch (err) {
-        showStatus(`Ошибка: ${err.message}`, 'error')
-        console.error('Ошибка загрузки:', err)
+        showStatus("Загрузка...", "");
+
+        try {
+          const formData = new FormData();
+          formData.append("image", selectedFile);
+
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || "Ошибка сервера");
+          }
+
+          const result = await response.json();
+          showStatus(`Файл "${result.filename}" успешно загружен!`, "success");
+          images.push(result.filename);
+
+          resetForm();
+        } catch (err) {
+          showStatus(`Ошибка: ${err.message}`, "error");
+          console.error("Ошибка загрузки:", err);
+        }
       }
-    }
 
-    function showStatus(message, type) {
-      statusDiv.textContent = message
-      statusDiv.className = type
-    }
+      function showStatus(message, type) {
+        statusDiv.textContent = message;
+        statusDiv.className = type;
+      }
 
-    function resetForm() {
-      fileInput.value = ''
-      preview.style.display = 'none'
-      uploadBtn.disabled = true
-      selectedFile = null
-    }
-
+      function resetForm() {
+        fileInput.value = "";
+        preview.style.display = "none";
+        uploadBtn.disabled = true;
+        selectedFile = null;
+      }
     </script>
-</body>
+  </body>
 </html>

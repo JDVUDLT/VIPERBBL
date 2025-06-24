@@ -1,56 +1,56 @@
 [
-    {
-        "name": "acer 3 grey",
-        "prc": "100000",
-        "bio": "Ноут",
-        "shopname": "JdvU",
-        "saleprc": 80000,
-        "sale": "20",
-        "image": "1744365999498.jpg"
-    },
-    {
-        "name": "Xiaomi 12",
-        "prc": "15000",
-        "bio": "Крутой телефон",
-        "shopname": "JdvU",
-        "saleprc": 13500,
-        "sale": "10",
-        "image": "1744975209470.jpg"
-    },
-    {
-        "name": "Самсунг 22",
-        "prc": "120000",
-        "bio": "1",
-        "shopname": "JdvU",
-        "saleprc": 108000,
-        "sale": "10",
-        "image": "1745849910708.jpg"
-    },
-    {
-        "name": "Lenovo 3",
-        "prc": "40000",
-        "bio": "Хайповый ноут",
-        "shopname": "JdvU",
-        "saleprc": 40000,
-        "sale": "0",
-        "image": "1746035315135.jpg"
-    },
-    {
-        "name": "Iphone 14 pro max",
-        "prc": "70000",
-        "bio": "256GB ",
-        "shopname": "JdvU",
-        "saleprc": 63000,
-        "sale": "10",
-        "image": "1746569009930.png"
-    },
-    {
-        "name": "Poco F4",
-        "prc": "30000",
-        "bio": "128GB Yellow",
-        "shopname": "JdvU",
-        "saleprc": 28500,
-        "sale": "5",
-        "image": "1746569144197.jpg"
-    }
+  {
+    "name": "acer 3 grey",
+    "prc": "100000",
+    "bio": "Ноут",
+    "shopname": "JdvU",
+    "saleprc": 80000,
+    "sale": "20",
+    "image": "1744365999498.jpg"
+  },
+  {
+    "name": "Xiaomi 12",
+    "prc": "15000",
+    "bio": "Крутой телефон",
+    "shopname": "JdvU",
+    "saleprc": 13500,
+    "sale": "10",
+    "image": "1744975209470.jpg"
+  },
+  {
+    "name": "Самсунг 22",
+    "prc": "120000",
+    "bio": "1",
+    "shopname": "JdvU",
+    "saleprc": 108000,
+    "sale": "10",
+    "image": "1745849910708.jpg"
+  },
+  {
+    "name": "Lenovo 3",
+    "prc": "40000",
+    "bio": "Хайповый ноут",
+    "shopname": "JdvU",
+    "saleprc": 40000,
+    "sale": "0",
+    "image": "1746035315135.jpg"
+  },
+  {
+    "name": "Iphone 14 pro max",
+    "prc": "70000",
+    "bio": "256GB ",
+    "shopname": "JdvU",
+    "saleprc": 63000,
+    "sale": "10",
+    "image": "1746569009930.png"
+  },
+  {
+    "name": "Poco F4",
+    "prc": "30000",
+    "bio": "128GB Yellow",
+    "shopname": "JdvU",
+    "saleprc": 28500,
+    "sale": "5",
+    "image": "1746569144197.jpg"
+  }
 ]

@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Профиль вашего магазина</title>
-    <link rel="stylesheet" href="/css/STYLEPROFILESHOP.css">
-    <link rel="icon" type="image/png" href="/css/favicon.png">
-</head>
-<body onload="showData()">
+    <link rel="stylesheet" href="/css/STYLEPROFILESHOP.css" />
+    <link rel="icon" type="image/png" href="/css/favicon.png" />
+  </head>
+  <body onload="showData()">
     <header>
-    <a href="/" class="logo">BBL</a>
-</header>
+      <a href="/" class="logo">BBL</a>
+    </header>
     <div class="container">
-        <h1>Профиль вашего магазина</h1>
-        <div id="bl1" class="info-box">Ваше имя:</div>
-        <div id="bl2" class="info-box">Ваш Логин:</div>
-        <div id="bl3" class="info-box">Ваш статус:</div>
-        <div id="bl4" class="info-box">Ваш уникальный ID:</div>
-        <button type="submit" class="button" onclick="Move()">Переход во внутренний редактор</button>
-        <button type="submit" class="button" onclick="ExitProfile()">Выйти из профиля</button>
+      <h1>Профиль вашего магазина</h1>
+      <div id="bl1" class="info-box">Ваше имя:</div>
+      <div id="bl2" class="info-box">Ваш Логин:</div>
+      <div id="bl3" class="info-box">Ваш статус:</div>
+      <div id="bl4" class="info-box">Ваш уникальный ID:</div>
+      <button type="submit" class="button" onclick="Move()">
+        Переход во внутренний редактор
+      </button>
+      <button type="submit" class="button" onclick="ExitProfile()">
+        Выйти из профиля
+      </button>
     </div>
     <footer class="footer">
-      <p>Связаться с нами:<br> viperr@gmail.com</p>
+      <p>
+        Связаться с нами:<br />
+        viperr@gmail.com
+      </p>
       <p>&copy; 2025 RR. Все права защищены.</p>
     </footer>
 
     <script>
-        if (!localStorage.getItem('Cart')) {
-        localStorage.setItem('Cart', JSON.stringify([]))
+      if (!localStorage.getItem("Cart")) {
+        localStorage.setItem("Cart", JSON.stringify([]));
+      }
+      let cart = JSON.parse(localStorage.getItem("Cart"));
+      let summ = 0;
+      let sale = 0;
+      let saleprc = 0;
+      function showData() {
+        savedUser = JSON.parse(localStorage.getItem("user"));
+        if (savedUser != null) {
+          document.getElementById("bl1").innerText =
+            "Ваше имя " + savedUser.name;
+          document.getElementById("bl2").innerText =
+            "Ваш Логин " + savedUser.log;
+          document.getElementById("bl3").innerText =
+            "Ваш статус " + savedUser.status;
+          document.getElementById("bl4").innerText =
+            "Ваш уникальный id " + savedUser.id;
+        } else {
+          window.location.href = "/login";
         }
-        let cart = JSON.parse(localStorage.getItem('Cart'))
-        let summ = 0
-        let sale = 0
-        let saleprc = 0
-        function showData(){
-            savedUser = JSON.parse(localStorage.getItem('user'))
-            if(savedUser != null){
-                document.getElementById("bl1").innerText = "Ваше имя " + savedUser.name
-                document.getElementById("bl2").innerText = "Ваш Логин " + savedUser.log
-                document.getElementById("bl3").innerText = "Ваш статус " + savedUser.status
-                document.getElementById("bl4").innerText = "Ваш уникальный id " + savedUser.id
-            }
-            else{
-                window.location.href = "/login"
-            }
-        }
-      function ExitProfile(){
-        localStorage.clear('user')
-        savedUser = null
-        window.location.href = "/login"
-      }  
-      function Move(){
-        window.location.href = "/profile/shop/editor"
-      }       
+      }
+      function ExitProfile() {
+        localStorage.clear("user");
+        savedUser = null;
+        window.location.href = "/login";
+      }
+      function Move() {
+        window.location.href = "/profile/shop/editor";
+      }
     </script>
-</body>
+  </body>
 </html>
